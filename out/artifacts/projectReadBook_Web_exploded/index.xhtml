@@ -49,25 +49,23 @@
         <p:autoComplete id="search" value="#{main.user1}" completeMethod="#{main.getFioSearch}"
                         var="user1" itemLabel="#{user1.fio}" itemValue="#{user1}" />
 
-        <p:outputLabel for="german" value="German:" />
+        <p:outputLabel for="german" value="Date:" />
         <p:calendar id="german" value="#{calendarBean.date}" locale="de" navigator="true" pattern="yyyy-MM-dd" />
-
-        <p:dataTable var="book" value="#{bookLazyView.lazyModel}" paginator="true" rows="10"
-                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                     rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{bookLazyView.book}" id="bookTable" lazy="true">
-            <p:column headerText="Id" sortBy="#{bookLazyView.book.id}" filterBy="#{bookLazyView.book.id}">
-                <h:outputText value="#{bookLazyView.book.id}" />
-            </p:column>
-            <p:column headerText="Title" sortBy="#{bookLazyView.book.title}" filterBy="#{bookLazyView.book.title}">
-                <h:outputText value="#{bookLazyView.book.title}" />
-            </p:column>
-            <p:column headerText="Date" sortBy="#{bookLazyView.book.date}" filterBy="#{bookLazyView.book.date}">
-                <h:outputText value="#{bookLazyView.book.date}" />
-            </p:column>
-            <p:column headerText="BookUser" sortBy="#{bookLazyView.book.bookUser}" filterBy="#{bookLazyView.book.bookUser}">
-                <h:outputText value="#{bookLazyView.book.bookUser}" />
-            </p:column>
-        </p:dataTable>
     </h:panelGrid>
+    <p:dataTable var="book" value="#{controllerLazy.dataModel}" paginator="true" paginatorPosition="bottom" rows="5"
+                 id="bookTable" lazy="true">
+        <p:column headerText="Id">
+            <h:outputText value="#{book.id}" />
+        </p:column>
+        <p:column headerText="Title">
+            <h:outputText value="#{book.title}" />
+        </p:column>
+        <p:column headerText="Date">
+            <h:outputText value="#{book.date}" />
+        </p:column>
+        <p:column headerText="BookUser">
+            <h:outputText value="#{book.bookUser.fio}" />
+        </p:column>
+    </p:dataTable>
 </h:form>
 </html>

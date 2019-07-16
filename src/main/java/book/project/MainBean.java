@@ -64,6 +64,21 @@ public class MainBean {
         user3.setLogin("pupkin");
         user3.setPass("jdfvj7434");
 
+        User user4 = new User();
+        user4.setFio("Сергеев Иван Васильевич");
+        user4.setLogin("sergeev");
+        user4.setPass("jkhfdug7d");
+
+        User user5 = new User();
+        user5.setFio("Осечкин Леонид Валерьянович");
+        user5.setLogin("osechkin");
+        user5.setPass("mdnvjkdfv7");
+
+        User user6 = new User();
+        user6.setFio("Дудкин Семен Семенович");
+        user6.setLogin("dudkin");
+        user6.setPass("dhvjdf7433");
+
         Book book1 = new Book();
         book1.setTitle("Война и мир");
         GregorianCalendar calendar1 = new GregorianCalendar(2017, 3, 13);
@@ -85,15 +100,40 @@ public class MainBean {
         book3.setDate(date3);
         book3.setBookUser(user3);
 
+        Book book4 = new Book();
+        book4.setTitle("Властелин колец");
+        GregorianCalendar calendar4 = new GregorianCalendar(2017, 4, 23);
+        Date date4 = calendar4.getTime();
+        book4.setDate(date4);
+        book4.setBookUser(user4);
+
+        Book book5 = new Book();
+        book5.setTitle("Лед и пламя");
+        GregorianCalendar calendar5 = new GregorianCalendar(2014, 12, 27);
+        Date date5 = calendar5.getTime();
+        book5.setDate(date5);
+        book5.setBookUser(user5);
+
+        Book book6 = new Book();
+        book6.setTitle("Java для чайников");
+        GregorianCalendar calendar6 = new GregorianCalendar(2015, 9, 18);
+        Date date6 = calendar6.getTime();
+        book6.setDate(date6);
+        book6.setBookUser(user6);
+
         session.save(user1);
         session.save(user2);
         session.save(user3);
+        session.save(user4);
+        session.save(user5);
+        session.save(user6);
         session.save(book1);
         session.save(book2);
         session.save(book3);
+        session.save(book4);
+        session.save(book5);
+        session.save(book6);
         transaction.commit();
-
-        session.close();
     }
 
     public User getUser1() {
