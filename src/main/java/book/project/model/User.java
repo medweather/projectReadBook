@@ -1,43 +1,58 @@
 package book.project.model;
 
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "user")
 public class User {
 
-    private int Id;
-    private String Fio;
-    private String Login;
-    private String Pass;
+    @Id
+    @NotNull
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "fio")
+    private String fio;
+
+    @Column(name = "login")
+    private String login;
+
+    @Column(name = "pass")
+    private String pass;
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getFio() {
-        return Fio;
+        return fio;
     }
 
     public void setFio(String fio) {
-        Fio = fio;
+        this.fio = fio;
     }
 
     public String getLogin() {
-        return Login;
+        return login;
     }
 
     public void setLogin(String login) {
-        Login = login;
+        this.login = login;
     }
 
     public String getPass() {
-        return Pass;
+        return pass;
     }
 
     public void setPass(String pass) {
-        Pass = pass;
+        this.pass = pass;
     }
 }

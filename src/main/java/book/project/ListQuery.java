@@ -1,4 +1,4 @@
-package book.project.database;
+package book.project;
 
 import book.project.model.Book;
 import book.project.model.User;

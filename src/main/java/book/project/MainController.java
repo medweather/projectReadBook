@@ -1,6 +1,5 @@
-package book.project.controller;
+package book.project;
 
-import book.project.database.ListQuery;
 import book.project.model.User;
 
 import javax.faces.bean.ManagedBean;
