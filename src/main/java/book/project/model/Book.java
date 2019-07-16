@@ -10,6 +10,7 @@ public class Book {
 
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 

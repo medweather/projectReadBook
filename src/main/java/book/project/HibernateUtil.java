@@ -26,9 +26,4 @@ class HibernateUtil {
     {
         return sessionFactory;
     }
-
-    static void getConnect(){
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        sessionFactory.close();
-    }
 }
