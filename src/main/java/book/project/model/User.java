@@ -1,7 +1,5 @@
 package book.project.model;
 
-import org.hibernate.SessionFactory;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

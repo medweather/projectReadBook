@@ -6,26 +6,68 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+<script type="text/javascript">
+    PrimeFaces.locales['de'] = {
+        closeText: 'Schließen',
+        prevText: 'Zurück',
+        nextText: 'Weiter',
+        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+        monthNamesShort: ['Jan', 'Feb', 'März', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+        dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+        weekHeader: 'Woche',
+        FirstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Nur Zeit',
+        timeText: 'Zeit',
+        hourText: 'Stunde',
+        minuteText: 'Minute',
+        secondText: 'Sekunde',
+        currentText: 'Aktuelles Datum',
+        ampm: false,
+        month: 'Monat',
+        week: 'Woche',
+        day: 'Tag',
+        allDayText: 'Ganzer Tag'
+    };
+</script>
+<style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+</style>
+
 <h:head>
 </h:head>
 
 <h:form>
-    <p:dataTable var="user" value="#{main.listUser}">
-        <p:column headerText="Id">
-            <h:outputText value="#{user.id}" />
-        </p:column>
+    <h:panelGrid columns="2" cellpadding="5">
+        <p:outputLabel value="Search:" for="search"/>
+        <p:autoComplete id="search" value="#{main.user1}" completeMethod="#{main.getFioSearch}"
+                        var="user1" itemLabel="#{user1.fio}" itemValue="#{user1}" />
 
-        <p:column headerText="Fio">
-            <h:outputText value="#{user.fio}" />
-        </p:column>
+        <p:outputLabel for="german" value="German:" />
+        <p:calendar id="german" value="#{calendarBean.date}" locale="de" navigator="true" pattern="yyyy-MM-dd" />
 
-        <p:column headerText="Login">
-            <h:outputText value="#{user.login}" />
-        </p:column>
-
-        <p:column headerText="Pass">
-            <h:outputText value="#{user.pass}" />
-        </p:column>
-    </p:dataTable>
+        <p:dataTable var="book" value="#{bookLazyView.lazyModel}" paginator="true" rows="10"
+                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,15" selectionMode="single" selection="#{bookLazyView.book}" id="bookTable" lazy="true">
+            <p:column headerText="Id" sortBy="#{bookLazyView.book.id}" filterBy="#{bookLazyView.book.id}">
+                <h:outputText value="#{bookLazyView.book.id}" />
+            </p:column>
+            <p:column headerText="Title" sortBy="#{bookLazyView.book.title}" filterBy="#{bookLazyView.book.title}">
+                <h:outputText value="#{bookLazyView.book.title}" />
+            </p:column>
+            <p:column headerText="Date" sortBy="#{bookLazyView.book.date}" filterBy="#{bookLazyView.book.date}">
+                <h:outputText value="#{bookLazyView.book.date}" />
+            </p:column>
+            <p:column headerText="BookUser" sortBy="#{bookLazyView.book.bookUser}" filterBy="#{bookLazyView.book.bookUser}">
+                <h:outputText value="#{bookLazyView.book.bookUser}" />
+            </p:column>
+        </p:dataTable>
+    </h:panelGrid>
 </h:form>
 </html>
