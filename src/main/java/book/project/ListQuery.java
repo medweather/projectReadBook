@@ -52,7 +52,7 @@ public class ListQuery {
         return criteria.list();
     }
 
-    public Long getTotalRegistros() {
+    public Long getTotalRegistr() {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Book.class);

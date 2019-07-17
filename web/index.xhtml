@@ -45,26 +45,62 @@
 
 <h:form>
     <h:panelGrid columns="2" cellpadding="5">
-        <p:outputLabel value="Search:" for="search"/>
-        <p:autoComplete id="search" value="#{main.user1}" completeMethod="#{main.getFioSearch}"
-                        var="user1" itemLabel="#{user1.fio}" itemValue="#{user1}" />
-
-        <p:outputLabel for="german" value="Date:" />
-        <p:calendar id="german" value="#{calendarBean.date}" locale="de" navigator="true" pattern="yyyy-MM-dd" />
+        <p:outputLabel value="User:" for="dataUser"/>
+        <p:autoComplete id="dataUser"
+                        value="#{searchUser.user1}"
+                        completeMethod="#{searchUser.getFioSearch}"
+                        onkeyup="PF('bookTable').filter()"
+                        var="user1"
+                        itemLabel="#{user1.fio}"
+                        itemValue="#{user1}"
+                        placeholder="Enter FIO"/>
     </h:panelGrid>
-    <p:dataTable var="book" value="#{controllerLazy.dataModel}" paginator="true" paginatorPosition="bottom" rows="5"
-                 id="bookTable" lazy="true">
-        <p:column headerText="Id">
+    <h:panelGrid columns="6" cellpadding="5">
+        <p:outputLabel for="german" value="Date:" />
+
+        <p:outputLabel for="german" value="from:" />
+        <p:calendar id="german"
+                    value="#{calendarBean.date}"
+                    locale="de"
+                    navigator="true"
+                    pattern="yyyy-MM-dd"
+                    placeholder="Enter from date" />
+
+        <p:outputLabel for="german1" value="to:" />
+        <p:calendar id="german1"
+                    value="#{calendarBean.date}"
+                    locale="de"
+                    navigator="true"
+                    pattern="yyyy-MM-dd"
+                    placeholder="Enter to date" />
+
+        <p:commandButton value="Search" />
+    </h:panelGrid>
+    <p:dataTable var="book"
+                 value="#{controllerLazy.dataModel}"
+                 filteredValue="#{filterBean.filteredBooks}"
+                 widgetVar="bookTable"
+                 paginator="true"
+                 paginatorPosition="bottom"
+                 rows="5"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="1,5"
+                 lazy="true" >
+        <p:column headerText="Id"
+                  sortBy="#{book.id}">
             <h:outputText value="#{book.id}" />
         </p:column>
-        <p:column headerText="Title">
+        <p:column headerText="Title"
+                  sortBy="#{book.title}">
             <h:outputText value="#{book.title}" />
         </p:column>
-        <p:column headerText="Date">
+        <p:column headerText="Date"
+                  sortBy="#{book.date}">
             <h:outputText value="#{book.date}" />
         </p:column>
-        <p:column headerText="BookUser">
-            <h:outputText value="#{book.bookUser.fio}" />
+        <p:column headerText="BookUser"
+                  sortBy="#{book.bookUser}">
+            <h:outputText value="#{book.bookUser}" />
         </p:column>
     </p:dataTable>
 </h:form>

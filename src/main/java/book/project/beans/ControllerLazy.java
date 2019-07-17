@@ -1,5 +1,6 @@
-package book.project;
+package book.project.beans;
 
+import book.project.ListQuery;
 import book.project.model.Book;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
@@ -34,7 +35,7 @@ public class ControllerLazy implements Serializable {
 
             @Override
             public List<Book> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                setRowCount(listQuery.getTotalRegistros().intValue());
+                setRowCount(listQuery.getTotalRegistr().intValue());
                 return listQuery.getBooks(first, pageSize, sortField, SortOrder.ASCENDING.equals(sortOrder));
             }
         };
