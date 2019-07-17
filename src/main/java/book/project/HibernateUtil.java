@@ -56,6 +56,26 @@ class HibernateUtil {
             user6.setLogin("dudkin");
             user6.setPass("dhvjdf7433");
 
+            User user7 = new User();
+            user7.setFio("Михайлов Сергей Дмитриевич");
+            user7.setLogin("mikhailov");
+            user7.setPass("kkjfnvfd749");
+
+            User user8 = new User();
+            user8.setFio("Борисов Андрей Вонифатьевич");
+            user8.setLogin("borisov");
+            user8.setPass(",dfv-sdflsd");
+
+            User user9 = new User();
+            user9.setFio("Максимов Максим Максимович");
+            user9.setLogin("maksimov");
+            user9.setPass("skdf79sdfvjs");
+
+            User user10 = new User();
+            user10.setFio("Голубева Любовь Александровна");
+            user10.setLogin("golubeva");
+            user10.setPass("jvnjnjskdfnv");
+
             Book book1 = new Book();
             book1.setTitle("Война и мир");
             GregorianCalendar calendar1 = new GregorianCalendar(2017, 3, 13);
@@ -98,18 +118,56 @@ class HibernateUtil {
             book6.setDate(date6);
             book6.setBookUser(user6);
 
+            Book book7 = new Book();
+            book7.setTitle("Мастер и Маргарита");
+            GregorianCalendar calendar7 = new GregorianCalendar(2018, 8, 28);
+            Date date7 = calendar7.getTime();
+            book7.setDate(date7);
+            book7.setBookUser(user7);
+
+            Book book8 = new Book();
+            book8.setTitle("Дубровский");
+            GregorianCalendar calendar8 = new GregorianCalendar(2013, 7, 22);
+            Date date8 = calendar8.getTime();
+            book8.setDate(date8);
+            book8.setBookUser(user8);
+
+            Book book9 = new Book();
+            book9.setTitle("Пиши, сокращай");
+            GregorianCalendar calendar9 = new GregorianCalendar(2016, 11, 20);
+            Date date9 = calendar9.getTime();
+            book9.setDate(date9);
+            book9.setBookUser(user9);
+
+            Book book10 = new Book();
+            book10.setTitle("Spring 5 для профессионалов");
+            GregorianCalendar calendar10 = new GregorianCalendar(2019, 4, 12);
+            Date date10 = calendar10.getTime();
+            book10.setDate(date10);
+            book10.setBookUser(user10);
+
             session.save(user1);
             session.save(user2);
             session.save(user3);
             session.save(user4);
             session.save(user5);
             session.save(user6);
+            session.save(user7);
+            session.save(user8);
+            session.save(user9);
+            session.save(user10);
+
             session.save(book1);
             session.save(book2);
             session.save(book3);
             session.save(book4);
             session.save(book5);
             session.save(book6);
+            session.save(book7);
+            session.save(book8);
+            session.save(book9);
+            session.save(book10);
+
             transaction.commit();
             session.close();
         }
