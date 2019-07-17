@@ -83,7 +83,6 @@
 
     <p:dataTable var="book"
                  value="#{controllerLazy.dataModel}"
-                 filteredValue="#{filterBean.filteredBooks}"
                  widgetVar="bookTable"
                  editable="true"
                  editMode="cell"
@@ -118,10 +117,10 @@
             </p:cellEditor>
         </p:column>
         <p:column headerText="BookUser"
-                  sortBy="#{book.fio}">
+                  sortBy="#{book.bokkUser}">
             <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{book.fio}" /></f:facet>
-                <f:facet name="input"><p:inputText id="bookUserInput" value="#{book.fio}" style="width:96%"/></f:facet>
+                <f:facet name="output"><h:outputText value="#{book.bookUser.fio}" /></f:facet>
+                <f:facet name="input"><p:inputText id="bookUserInput" value="#{book.bookUser.fio}" style="width:96%"/></f:facet>
             </p:cellEditor>
         </p:column>
     </p:dataTable>
