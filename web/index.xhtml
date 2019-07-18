@@ -50,9 +50,8 @@
 
         <p:outputLabel value="User:" for="dataUser"/>
         <p:autoComplete id="dataUser"
-                        value="#{searchUser.user1}"
-                        completeMethod="#{searchUser.getFioSearch}"
-                        onkeyup="PF('bookTable').filter()"
+                        value="#{editBean.user1}"
+                        completeMethod="#{editBean.getFioSearch}"
                         var="user1"
                         itemLabel="#{user1.fio}"
                         itemValue="#{user1}"
@@ -78,51 +77,9 @@
                     pattern="yyyy-MM-dd"
                     placeholder="Enter to date" />
 
-        <p:commandButton value="Search" />
+        <p:commandButton value="Search" update=":dtForm" />
     </h:panelGrid>
 
-    <p:dataTable var="book"
-                 value="#{controllerLazy.dataModel}"
-                 widgetVar="bookTable"
-                 editable="true"
-                 editMode="cell"
-                 paginator="true"
-                 paginatorPosition="bottom"
-                 rows="5"
-                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                 rowsPerPageTemplate="1,5,10"
-                 lazy="true" >
-
-        <p:ajax event="cellEdit" listener="#{editBean.onCellEdit}" update=":form:msgs" />
-
-        <p:column headerText="Id"
-                  sortBy="#{book.id}">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{book.id}" /></f:facet>
-                <f:facet name="input"><p:inputText id="idInput" value="#{book.id}" style="width:96%"/></f:facet>
-            </p:cellEditor>
-        </p:column>
-        <p:column headerText="Title"
-                  sortBy="#{book.title}">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{book.title}" /></f:facet>
-                <f:facet name="input"><p:inputText id="titleInput" value="#{book.title}" style="width:96%"/></f:facet>
-            </p:cellEditor>
-        </p:column>
-        <p:column headerText="Date"
-                  sortBy="#{book.date}">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{book.date}" /></f:facet>
-                <f:facet name="input"><p:inputText id="dateInput" value="#{book.date}" style="width:96%"/></f:facet>
-            </p:cellEditor>
-        </p:column>
-        <p:column headerText="BookUser"
-                  sortBy="#{book.bokkUser}">
-            <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{book.bookUser.fio}" /></f:facet>
-                <f:facet name="input"><p:inputText id="bookUserInput" value="#{book.bookUser.fio}" style="width:96%"/></f:facet>
-            </p:cellEditor>
-        </p:column>
-    </p:dataTable>
 </h:form>
+<ui:include src="/table.xhtml" />
 </html>

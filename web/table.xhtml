@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+
+<h:form id="dtForm">
+    <p:dataTable var="book"
+                 value="#{editBean.books}"
+                 filteredValue="#{editBean.filteredBookUser}"
+                 widgetVar="bookTable"
+                 editable="true"
+                 editMode="cell"
+                 paginator="true"
+                 paginatorPosition="bottom"
+                 rows="5"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                 rowsPerPageTemplate="1,5,10">
+
+        <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Search all fields:" />
+                <p:inputText id="globalFilter" onkeyup="PF('bookTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+            </p:outputPanel>
+        </f:facet>
+
+        <p:ajax event="cellEdit" listener="#{editBean.onCellEdit}" update=":form:msgs" />
+
+        <p:column headerText="Id"
+                  sortBy="#{book.id}"
+                  filterBy="#{book.id}">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{book.id}" /></f:facet>
+                <f:facet name="input"><p:inputText id="idInput" value="#{book.id}" style="width:96%"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        <p:column headerText="Title"
+                  sortBy="#{book.title}"
+                  filterBy="#{book.title}">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{book.title}" /></f:facet>
+                <f:facet name="input"><p:inputText id="titleInput" value="#{book.title}" style="width:96%"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        <p:column headerText="Date"
+                  sortBy="#{book.date}"
+                  filterBy="#{book.date}">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{book.date}" /></f:facet>
+                <f:facet name="input"><p:inputText id="dateInput" value="#{book.date}" style="width:96%"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+        <p:column headerText="BookUser"
+                  sortBy="#{book.bookUser.fio}"
+                  filterBy="#{book.bookUser.fio}">
+            <p:cellEditor>
+                <f:facet name="output"><h:outputText value="#{book.bookUser.fio}" /></f:facet>
+                <f:facet name="input"><p:inputText id="bookUserInput" value="#{book.bookUser.fio}" style="width:96%"/></f:facet>
+            </p:cellEditor>
+        </p:column>
+    </p:dataTable>
+</h:form>
+</html>
