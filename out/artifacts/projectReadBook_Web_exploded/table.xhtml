@@ -15,9 +15,9 @@
 
     <p:dataTable id="dtBook"
                  var="book"
-                 value="#{editBean.lazyDataModel}"
+                 value="#{mainBean.lazyDataModel}"
                  selectionMode="single"
-                 selection="#{editBean.selectedBook}"
+                 selection="#{mainBean.selectedBook}"
                  editable="true"
                  paginator="true"
                  paginatorPosition="bottom"
@@ -27,14 +27,14 @@
                  lazy="true">
 
         <p:ajax event="rowSelect"
-                listener="#{editBean.onRowSelect}"
+                listener="#{mainBean.onRowSelect}"
                 update=":dtForm:bookDetail"
                 oncomplete="PF('bookDialog').show()" />
         <p:ajax event="rowEdit"
-                listener="#{editBean.onRowEdit}"
+                listener="#{mainBean.onRowEdit}"
                 update=":dtForm:msgs" />
         <p:ajax event="rowEditCancel"
-                listener="#{editBean.onRowCancel}"
+                listener="#{mainBean.onRowCancel}"
                 update=":dtForm:msgs" />
 
         <p:column headerText="Id"
@@ -67,7 +67,7 @@
         </p:column>
         <p:column headerText="BookUser"
                   sortBy="#{book.bookUser}"
-                  filterBy="#{book.bookUser}">
+                  filterBy="#{mainBean.user1}">
             <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{book.bookUser}" /></f:facet>
                 <f:facet name="input"><p:inputText value="#{book.bookUser}"
@@ -88,20 +88,20 @@
         <p:outputPanel id="bookDetail"
                        style="text-align:center;">
             <p:panelGrid  columns="2"
-                          rendered="#{not empty editBean.selectedBook}"
+                          rendered="#{not empty mainBean.selectedBook}"
                           columnClasses="label,value">
 
                 <h:outputText value="Id:" />
-                <h:outputText value="#{editBean.selectedBook.id}" />
+                <h:outputText value="#{mainBean.selectedBook.id}" />
 
                 <h:outputText value="Title" />
-                <h:outputText value="#{editBean.selectedBook.title}" />
+                <h:outputText value="#{mainBean.selectedBook.title}" />
 
                 <h:outputText value="Date:" />
-                <h:outputText value="#{editBean.selectedBook.date}" />
+                <h:outputText value="#{mainBean.selectedBook.date}" />
 
                 <h:outputText value="BookUser:" />
-                <h:outputText value="#{editBean.selectedBook.bookUser}" />
+                <h:outputText value="#{mainBean.selectedBook.bookUser}" />
             </p:panelGrid>
         </p:outputPanel>
     </p:dialog>

@@ -19,25 +19,25 @@ import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class EditBean implements Serializable {
+public class MainBean implements Serializable {
 
     private User user1;
     private LazyDataModel<BookDAO> lazyDataModel;
     private BookDAO selectedBook;
+    private List<User> filteredFio = new ArrayList<>();
 
 
     public List<User> getFioSearch(String query){
         ListQuery listQuery = new ListQuery();
         List<User> users = new ArrayList<>();
         users = listQuery.getUsers();
-        List<User> filteredFio = new ArrayList<User>();
-
         for (int i = 0; i < users.size(); i++) {
             User us = users.get(i);
             if(us.getFio().toLowerCase().contains(query)) {
                 filteredFio.add(us);
             }
         }
+
         return filteredFio;
     }
 
