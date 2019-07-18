@@ -10,33 +10,41 @@
 </h:head>
 
 <h:form id="dtForm">
-    <p:dataTable var="book"
-                 value="#{editBean.books}"
-                 filteredValue="#{editBean.filteredBookUser}"
-                 widgetVar="bookTable"
+
+    <p:growl id="msgs" showDetail="true"/>
+
+    <p:dataTable id="dtBook"
+                 var="book"
+                 value="#{editBean.lazyDataModel}"
+                 selectionMode="single"
+                 selection="#{editBean.selectedBook}"
                  editable="true"
-                 editMode="cell"
                  paginator="true"
                  paginatorPosition="bottom"
                  rows="5"
                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                 rowsPerPageTemplate="1,5,10">
+                 rowsPerPageTemplate="1,5,10"
+                 lazy="true">
 
-        <f:facet name="header">
-            <p:outputPanel>
-                <h:outputText value="Search all fields:" />
-                <p:inputText id="globalFilter" onkeyup="PF('bookTable').filter()" style="width:150px" placeholder="Enter keyword"/>
-            </p:outputPanel>
-        </f:facet>
-
-        <p:ajax event="cellEdit" listener="#{editBean.onCellEdit}" update=":form:msgs" />
+        <p:ajax event="rowSelect"
+                listener="#{editBean.onRowSelect}"
+                update=":dtForm:bookDetail"
+                oncomplete="PF('bookDialog').show()" />
+        <p:ajax event="rowEdit"
+                listener="#{editBean.onRowEdit}"
+                update=":dtForm:msgs" />
+        <p:ajax event="rowEditCancel"
+                listener="#{editBean.onRowCancel}"
+                update=":dtForm:msgs" />
 
         <p:column headerText="Id"
                   sortBy="#{book.id}"
                   filterBy="#{book.id}">
             <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{book.id}" /></f:facet>
-                <f:facet name="input"><p:inputText id="idInput" value="#{book.id}" style="width:96%"/></f:facet>
+                <f:facet name="input"><p:inputText id="modelInput"
+                                                   value="#{book.id}"
+                                                   style="width:100%"/></f:facet>
             </p:cellEditor>
         </p:column>
         <p:column headerText="Title"
@@ -44,7 +52,8 @@
                   filterBy="#{book.title}">
             <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{book.title}" /></f:facet>
-                <f:facet name="input"><p:inputText id="titleInput" value="#{book.title}" style="width:96%"/></f:facet>
+                <f:facet name="input"><p:inputText value="#{book.title}"
+                                                   style="width:100%"/></f:facet>
             </p:cellEditor>
         </p:column>
         <p:column headerText="Date"
@@ -52,17 +61,49 @@
                   filterBy="#{book.date}">
             <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{book.date}" /></f:facet>
-                <f:facet name="input"><p:inputText id="dateInput" value="#{book.date}" style="width:96%"/></f:facet>
+                <f:facet name="input"><p:inputText value="#{book.date}"
+                                                   style="width:100%"/></f:facet>
             </p:cellEditor>
         </p:column>
         <p:column headerText="BookUser"
-                  sortBy="#{book.bookUser.fio}"
-                  filterBy="#{book.bookUser.fio}">
+                  sortBy="#{book.bookUser}"
+                  filterBy="#{book.bookUser}">
             <p:cellEditor>
-                <f:facet name="output"><h:outputText value="#{book.bookUser.fio}" /></f:facet>
-                <f:facet name="input"><p:inputText id="bookUserInput" value="#{book.bookUser.fio}" style="width:96%"/></f:facet>
+                <f:facet name="output"><h:outputText value="#{book.bookUser}" /></f:facet>
+                <f:facet name="input"><p:inputText value="#{book.bookUser}"
+                                                   style="width:100%"/></f:facet>
             </p:cellEditor>
         </p:column>
+        <p:column style="width:35px">
+            <p:rowEditor />
+        </p:column>
     </p:dataTable>
+
+    <p:dialog header="Book Detail"
+              widgetVar="bookDialog"
+              modal="true"
+              showEffect="fade"
+              hideEffect="fade"
+              resizable="false">
+        <p:outputPanel id="bookDetail"
+                       style="text-align:center;">
+            <p:panelGrid  columns="2"
+                          rendered="#{not empty editBean.selectedBook}"
+                          columnClasses="label,value">
+
+                <h:outputText value="Id:" />
+                <h:outputText value="#{editBean.selectedBook.id}" />
+
+                <h:outputText value="Title" />
+                <h:outputText value="#{editBean.selectedBook.title}" />
+
+                <h:outputText value="Date:" />
+                <h:outputText value="#{editBean.selectedBook.date}" />
+
+                <h:outputText value="BookUser:" />
+                <h:outputText value="#{editBean.selectedBook.bookUser}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
 </h:form>
 </html>

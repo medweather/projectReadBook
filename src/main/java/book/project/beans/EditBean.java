@@ -1,9 +1,12 @@
 package book.project.beans;
 
+import book.project.BookDAO;
 import book.project.ListQuery;
-import book.project.model.Book;
+import book.project.lazy.LazyBookDataModel;
 import book.project.model.User;
-import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.model.LazyDataModel;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -18,21 +21,19 @@ import java.util.List;
 @ViewScoped
 public class EditBean implements Serializable {
 
-    private List<Book> books;
-    private List<User> filteredBookUser;
     private User user1;
-
-    public List<Book> getBooks() {
-        return books;
-    }
+    private LazyDataModel<BookDAO> lazyDataModel;
+    private BookDAO selectedBook;
 
 
     public List<User> getFioSearch(String query){
+        ListQuery listQuery = new ListQuery();
+        List<User> users = new ArrayList<>();
+        users = listQuery.getUsers();
         List<User> filteredFio = new ArrayList<User>();
 
-        for (int i = 0; i < books.size(); i++) {
-            Book book = books.get(i);
-            User us = book.getBookUser();
+        for (int i = 0; i < users.size(); i++) {
+            User us = users.get(i);
             if(us.getFio().toLowerCase().contains(query)) {
                 filteredFio.add(us);
             }
@@ -43,22 +44,10 @@ public class EditBean implements Serializable {
     @PostConstruct
     public void init() {
         ListQuery listQuery = new ListQuery();
-        books = listQuery.getBooks();
+        lazyDataModel = new LazyBookDataModel(listQuery.getBooks());
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
 
-    public void onCellEdit(CellEditEvent event) {
-        Object oldValue = event.getOldValue();
-        Object newValue = event.getNewValue();
-
-        if(newValue != null && !newValue.equals(oldValue)) {
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Успешно изменено", "Old: " + oldValue + ", New:" + newValue);
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
 
     public User getUser1() {
         return user1;
@@ -68,16 +57,30 @@ public class EditBean implements Serializable {
         this.user1 = user1;
     }
 
-
-    public List<User> getFilteredBookUser() {
-        return filteredBookUser;
+    public LazyDataModel<BookDAO> getLazyDataModel() {
+        return lazyDataModel;
     }
 
-    public void setFilteredBookUser(List<User> filteredBookUser) {
-        this.filteredBookUser = filteredBookUser;
+    public BookDAO getSelectedBook() {
+        return selectedBook;
     }
 
-    public String showData() {
-        return "index.xhtml?faces-redirect=true";
+    public void setSelectedBook(BookDAO selectedBook) {
+        this.selectedBook = selectedBook;
+    }
+
+    public void onRowSelect(SelectEvent event) {
+        FacesMessage msg = new FacesMessage("Car Selected", ((BookDAO) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowEdit(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Car Edited", ((BookDAO) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((BookDAO) event.getObject()).getId());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }
