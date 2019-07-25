@@ -67,7 +67,7 @@
         </p:column>
         <p:column headerText="BookUser"
                   sortBy="#{book.bookUser}"
-                  filterBy="#{mainBean.user1}">
+                  filterBy="#{book.bookUser}">
             <p:cellEditor>
                 <f:facet name="output"><h:outputText value="#{book.bookUser}" /></f:facet>
                 <f:facet name="input"><p:inputText value="#{book.bookUser}"
